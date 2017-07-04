@@ -1,0 +1,48 @@
+//The buildScript block determines which  additionally third-party plugins, task classes,
+// and other classes are available for use in the rest of the build script.
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        //a build script dependency -> use Spring Boot Gradle Plugin
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+    }
+}
+//define a java project/apply java plugin to this project
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot' // including the plugin
+
+//project name & version
+jar {
+    baseName = 'gs-accessing-data-mysql'
+    version =  '0.1.0'
+}
+
+//define a repository: fetching & publishing dependencies
+repositories {
+    mavenCentral()
+}
+
+//java version
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+//Gradle dependency management
+//version information are omitted
+dependencies {
+
+    compile("org.springframework.boot:spring-boot-starter-web")
+
+    // JPA Data (We are going to use Repositories, Entities, Hibernate, etc...)
+    //enable JPA in a Spring Boot application,
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Use MySQL Connector-J
+    //to use JPA with MySQL database
+    compile 'mysql:mysql-connector-java'
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
